@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="zh-Hant-TW" id="top">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>神仙科技 多年老牌店家 | 支援多種支付方式</title>
+
+  <link rel="icon" href="https://live.staticflickr.com/65535/52792841951_76e3117e79_q.jpg" type="image/x-icon">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" referrerpolicy="no-referrer" />
+
+  <style>
+    :root{
+      --bg: #0b1020;
+      --card: rgba(255,255,255,.10);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --line: rgba(255,255,255,.14);
+      --primary: #4aa3ff;
+      --primary2:#7c5cff;
+      --radius: 16px;
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --max: 1200px;
+      --h1: clamp(1.35rem, 2.2vw, 2.1rem);
+      --h2: clamp(1.15rem, 1.6vw, 1.45rem);
+      --p: clamp(.95rem, 1.2vw, 1.02rem);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans TC", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none}
+    a:hover{opacity:.92}
+
+    /* 背景影片 */
+    .bg{position:fixed; inset:0; z-index:-2; overflow:hidden;}
+    .bg__video{
+      width:100%; height:100%;
+      object-fit:cover;
+      filter:saturate(1.1) contrast(1.05);
+    }
+    .bg__overlay{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(60% 60% at 50% 20%, rgba(0,0,0,.20), rgba(0,0,0,.65) 70%),
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.75));
+      z-index:1;
+    }
+
+    /* 右上角音量 */
+    .sound{
+      position:fixed;
+      right:14px;
+      top:14px;
+      z-index:50;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 12px;
+      cursor:pointer;
+      box-shadow: var(--shadow);
+    }
+    .sound:active{transform: translateY(1px)}
+
+    /* Sticky header */
+    .topbar{
+      position:sticky; top:0; z-index:40;
+      backdrop-filter: blur(10px);
+      background: rgba(10,14,30,.55);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar__inner{
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 12px 14px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      justify-content: space-between;
+    }
+    .brand{display:flex; gap:10px; align-items:center;}
+    .brand__badge{
+      width:40px; height:40px;
+      display:grid; place-items:center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--primary2));
+      box-shadow: var(--shadow);
+    }
+    .brand__title{font-weight:900}
+    .brand__subtitle{color:var(--muted); font-size:.85rem}
+    .nav{
+      display:flex; gap:12px; flex-wrap:wrap;
+      justify-content:flex-end;
+      font-size:.95rem;
+    }
+    .nav a{
+      padding:8px 10px;
+      border-radius: 999px;
+      border:1px solid transparent;
+    }
+    .nav a:hover{border-color: var(--line); background: rgba(255,255,255,.06)}
+
+    /* Layout */
+    .page{padding: 18px 14px 60px}
+    .section{max-width: var(--max); margin: 0 auto; padding: 22px 0}
+    .section__head{margin-bottom: 14px}
+    .section__head h2{margin:0; font-size: var(--h2)}
+    .section__head p{margin:6px 0 0; color:var(--muted); font-size: var(--p)}
+
+    .card{
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    /* Hero */
+    .hero{max-width: var(--max); margin: 12px auto 0}
+    .hero__card{padding: 22px}
+    .hero__h1{margin:0; font-size: var(--h1)}
+    .hero__lead{margin:10px 0 0; color: var(--muted); font-size: var(--p)}
+    .hero__grid{
+      margin-top:16px;
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    .hero__kpi{
+      display:flex; gap:10px; align-items:flex-start;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .hero__kpi i{color: var(--primary); margin-top: 3px}
+    .kpi__title{font-weight:900}
+    .kpi__desc{color: var(--muted); font-size:.9rem}
+
+    .hero__hint{
+      margin-top: 14px;
+      display:flex; gap:10px; align-items:center;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(74,163,255,.12);
+      border: 1px solid rgba(74,163,255,.25);
+    }
+    .pill{
+      display:inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(74,163,255,.25);
+      border: 1px solid rgba(74,163,255,.35);
+      font-weight:900;
+    }
+
+    /* Buy section */
+    .muted-title{margin:0 0 8px}
+    .muted{margin: 0 0 12px; color: var(--muted)}
+    .media-row{
+      display:grid;
+      gap:10px;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      margin: 12px 0 12px;
+    }
+    .media-row img{
+      width:100%; height: 110px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .form label{display:block; margin: 10px 0 6px; color: var(--muted)}
+    select{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      outline:none;
+    }
+    select:focus{border-color: rgba(74,163,255,.55)}
+
+    .purchase-row{
+      margin-top: 12px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .price{
+      font-weight:900;
+      font-size: 1.2rem;
+      color: #ffd36e;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform .12s ease, background .18s ease, border-color .18s ease;
+    }
+    .btn:disabled{opacity:.45; cursor:not-allowed}
+    .btn:active{transform: translateY(1px)}
+    .btn--primary{
+      border-color: rgba(74,163,255,.45);
+      background: linear-gradient(135deg, rgba(74,163,255,.35), rgba(124,92,255,.25));
+    }
+    .btn--ghost:hover{background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.25)}
+    .btn-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+
+    .note{margin: 10px 0 0; color: var(--muted); font-size:.92rem}
+    .divider{height:1px; background: var(--line); margin: 14px 0}
+
+    /* Partner ad */
+    .ad{display:grid; gap:14px}
+    .ad__media img{
+      width:100%;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .ad__content h3{margin: 6px 0 8px}
+    .list{margin:10px 0 0; padding-left: 18px}
+    .list li{margin: 6px 0}
+
+    .ratio{
+      position:relative;
+      width:100%;
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.25);
+    }
+    .ratio--16x9{aspect-ratio: 16 / 9;}
+    .ratio iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+
+    /* Reviews slider */
+    .slider{position:relative}
+    .slide{display:none}
+    .slide.is-active{display:block}
+    .avatar{
+      width:120px; height:120px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.20);
+      object-fit: cover;
+    }
+    .stars{color:#ffd36e; font-size: 1.15rem; margin: 10px 0}
+    .meta{margin: 6px 0}
+    .quote{
+      margin: 12px 0 0;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      padding: 12px;
+      border-radius: 14px;
+    }
+    .iconbtn{
+      width:40px; height:40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      cursor:pointer;
+    }
+    .iconbtn.prev, .iconbtn.next{
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .iconbtn.prev{left:10px}
+    .iconbtn.next{right:10px}
+
+    /* Pay */
+    .pay__grid{
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      margin-top: 14px;
+    }
+    .pay__item{
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .pay__item h3{margin:0 0 8px}
+    .pay__secret{margin: 0; color: var(--muted)}
+    .secret__value{color: var(--text); font-weight:900}
+
+    .rainbow{
+      font-weight:900;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(90deg,
+        rgba(255,0,90,.20),
+        rgba(255,170,0,.18),
+        rgba(255,255,0,.16),
+        rgba(0,255,120,.14),
+        rgba(74,163,255,.18),
+        rgba(124,92,255,.18)
+      );
+    }
+
+    /* Deposit */
+    .grid2{
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      margin-top: 10px;
+    }
+    .ol{margin: 10px 0 0; padding-left: 18px}
+    .ol li{margin: 6px 0}
+
+    .discord{
+      margin-top: 14px;
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .discord iframe{width:100%; height: 480px; border:0; display:block}
+
+    /* Table */
+    .table-wrap{overflow:auto; border-radius: 14px; border:1px solid rgba(255,255,255,.12)}
+    table{width:100%; border-collapse: collapse; min-width: 680px; background: rgba(0,0,0,.18)}
+    th,td{padding: 12px 14px; text-align:left; border-bottom: 1px solid rgba(255,255,255,.10)}
+    th{
+      position:sticky; top:0;
+      background: rgba(74,163,255,.18);
+      backdrop-filter: blur(8px);
+    }
+    tbody tr:hover{background: rgba(255,255,255,.06)}
+
+    /* Log */
+    .log{display:grid; gap:10px}
+    .log__item{
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+    }
+    .log__date{font-weight:900; color: #9ad0ff}
+    .log__text{margin-top:4px}
+
+    /* Footer */
+    .footer{max-width: var(--max); margin: 0 auto; padding: 20px 0 0}
+    .footer__inner{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+    .to-top{padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px}
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(0,0,0,.55);
+      z-index:60;
+    }
+    .modal.is-open{display:flex}
+    .modal__panel{
+      width:min(520px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(10,14,30,.85);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+    .modal__head{
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap:10px;
+    }
+    .modal__head h3{margin:0}
+    .modal__form{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+    }
+    .modal__form input{
+      flex:1;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      outline:none;
+    }
+    .modal__form input:focus{border-color: rgba(74,163,255,.55)}
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      z-index: 80;
+      display:none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.65);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      max-width: min(680px, 92vw);
+      text-align:center;
+    }
+    .toast.is-show{display:block; animation: pop .18s ease-out}
+    @keyframes pop{
+      from{opacity:0; transform: translateX(-50%) translateY(10px)}
+      to{opacity:1; transform: translateX(-50%) translateY(0)}
+    }
+
+    /* RWD */
+    @media (max-width: 980px){
+      .hero__grid{grid-template-columns: 1fr}
+      .pay__grid{grid-template-columns: 1fr}
+      .grid2{grid-template-columns: 1fr}
+      .media-row{grid-template-columns: repeat(2, minmax(0,1fr))}
+      .nav{display:none}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .toast.is-show{animation:none}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 背景影片 -->
+  <div class="bg">
+    <video id="bgVideo" class="bg__video" autoplay loop muted playsinline>
+      <source src="https://raiden.gg/assets/videoplayback.mp4" type="video/mp4" />
+    </video>
+    <div class="bg__overlay" aria-hidden="true"></div>
+  </div>
+
+  <!-- 音量控制 -->
+  <button class="sound" id="soundToggle" type="button" aria-label="切換背景影片靜音">
+    <i class="fas fa-volume-mute" aria-hidden="true"></i>
+  </button>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <div class="brand">
+        <div class="brand__badge">⚡</div>
+        <div class="brand__text">
+          <div class="brand__title">神仙科技 × 老牌店家</div>
+          <div class="brand__subtitle">支付資訊｜購買入口｜流程教學</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="頁面導覽">
+        <a href="#buy">購買</a>
+        <a href="#partner">合作夥伴</a>
+        <a href="#reviews">評價</a>
+        <a href="#pay">轉賬/錢包</a>
+        <a href="#deposit">無卡存款</a>
+        <a href="#blacklist">不販售</a>
+        <a href="#log">更新日誌</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="card hero__card">
+        <h1 class="hero__h1">【✅支持：銀行轉賬｜刷卡/分期｜超商繳費 | 其他家行動支付】</h1>
+        <p class="hero__lead">安全｜方便｜快捷。支付完畢請保留證明或收據，提升對帳效率。</p>
+
+        <div class="hero__grid">
+          <div class="hero__kpi">
+            <i class="fas fa-shield-alt"></i>
+            <div>
+              <div class="kpi__title">交易安全</div>
+              <div class="kpi__desc">跟第三方 藍新金流合作 安全穩定</div>
+            </div>
+          </div>
+          <div class="hero__kpi">
+            <i class="fas fa-bolt"></i>
+            <div>
+              <div class="kpi__title">流程清楚</div>
+              <div class="kpi__desc">從下單到安排一次到位</div>
+            </div>
+          </div>
+          <div class="hero__kpi">
+            <i class="fas fa-mobile-alt"></i>
+            <div>
+              <div class="kpi__title">手機友善</div>
+              <div class="kpi__desc">不必切換電腦版也能順</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__hint">
+          <span class="pill">提示</span>
+          <span>需要轉賬/錢包地址請先「聊聊 or Discord」取得密碼。</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 購買 -->
+    <section id="buy" class="section">
+      <div class="section__head">
+        <h2>🛍️ 產品購買（已含手續費）</h2>
+        <p>選擇方案後會自動顯示價格並解鎖「立即購買」。</p>
+      </div>
+
+      <div class="card">
+        <h3 class="muted-title">本店販售：GTAV｜RDR2｜CS2｜幻獸帕魯｜絕地戰兵2</h3>
+        <p class="muted">想要免手續費：請往下滑使用「中國信託｜國泰世華」帳號轉賬（需先取得密碼）。</p>
+
+        <div class="media-row">
+          <img alt="GTAV" src="https://upload.wikimedia.org/wikipedia/zh/0/0a/V_coverart_1024x768.jpg" loading="lazy">
+          <img alt="RDR2" src="https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg" loading="lazy">
+          <img alt="CS2" src="https://cdn.cloudflare.steamstatic.com/apps/csgo/images/csgo_react/social/cs2.jpg" loading="lazy">
+          <img alt="幻獸帕魯" src="https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg?t=1705662211" loading="lazy">
+        </div>
+
+        <div class="form">
+          <label for="productSelect">選擇遊戲｜版本｜期限</label>
+          <select id="productSelect">
+            <option value="#">選擇遊戲|版本|期限</option>
+
+            <option value="https://shopee.tw/elisa668|1">【🚗對升級車燈有興趣請私聊】(可以到蝦皮聊聊詢問)【蝦皮搜尋台中新動力】- $1</option>
+            <option value="https://core.newebpay.com/EPG/AMDYES888/tSRRBG|1">【💁客戶自定義下單】(給已經跟我們聯繫過的客戶下單)【需自行添加手續45元】- $1</option>
+            <option value="https://core.newebpay.com/EPG/AMDYES888/tSRRBG|1">【💁需要CS2 幻獸帕魯 其餘菜單請私聊】（需要其他的菜單請私聊）【需自行添加手續45元】- $1</option>
+            <option value="https://core.newebpay.com/EPG/AMDYES888/0meGfK|5045">【💪GTAV ✅支持：強化版 傳承版】🔥Lexis永久版 【極致頂級穩定】 開啟BE進入戰局 【包含手續費】- $5045</option>
+            <option value="https://core.newebpay.com/EPG/AMDYES888/vBMtNa|3925">【💪GTAV ✅支持：強化版 傳承版】🔥Lexis季卡 【極致頂級穩定】 開啟BE進入戰局 【包含手續費】- $3925</option>
+           <option value="https://core.newebpay.com/EPG/AMDYES888/Lz8D6R|2395">【💪GTAV 擴充功能 強大無比 僅限支持強化】🔥Lexis-LUA永久版 【極致頂級穩定】 開啟BE進入戰局 【包含手續費】- $2395</option>
+            <option value="https://core.newebpay.com/EPG/AMDYES888/HGl3X9|1545">【💪GTAV ✅僅限支持傳承版】💯新反作弊來襲FRIEZA穩如泰山【包含手續費】- $1545</option>            
+            <option value="https://core.newebpay.com/EPG/AMDYES888/1Cn22A|1745">【👍RDR2】NightM【永久版】 全新黑馬 更新豐富【包含手續費】- $1745</option>            
+            <option value="https://core.newebpay.com/EPG/AMDYES888/lkZA8C|1645">【👍RDR2】黃昏終生版 CP值高【包含手續費】- $1645</option>
+            <option value="https://core.newebpay.com/EPG/AMDYES888/3VkBlO|2595">【RDR2】EXODUS終生版【包含手續費】- $2595</option>
+            <option value="https://core.newebpay.com/EPG/AMDYES888/Ggmzw9|2700">【RDR2 】FORTITUDE終生版【包含超繳手續費】- $2700</option>
+
+          </select>
+
+          <div class="purchase-row">
+            <div class="price" id="priceDisplay">尚未選擇方案</div>
+            <button class="btn btn--primary" id="buyButton" type="button" disabled>
+              <i class="fas fa-shopping-cart"></i> 立即購買
+            </button>
+          </div>
+
+          <p class="note">若點擊後瀏覽器阻擋彈窗，請允許本站開啟新分頁。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 合作夥伴 -->
+    <section id="partner" class="section">
+      <div class="section__head">
+        <h2>🚗 合作夥伴｜台中新動力 × KINSTER</h2>
+        <p>極致車燈科技 · 點亮未來。</p>
+      </div>
+
+      <div class="card ad">
+        <div class="ad__media">
+          <img src="https://live.staticflickr.com/65535/54248199446_09123e28da_o.png" alt="車燈產品展示" loading="lazy">
+        </div>
+        <div class="ad__content">
+          <h3>【KINSTER 汽車LED大燈】</h3>
+          <p>以卓越亮度、智能控溫與全天候耐用性，為駕駛帶來更安全、更舒適的視野。</p>
+          <p>台中新動力屬於我們的合作夥伴，有興趣升級車燈的，請到蝦皮聊聊。真心推薦，效果一級棒。</p>
+
+          <ul class="list">
+            <li>💪 台灣工藝 × 台灣技術 × 高亮輸出</li>
+            <li>💪 對比主流市售品牌具備競爭優勢</li>
+            <li>💡 原廠鹵素／HID 升級 LED 皆可支援</li>
+            <li>🌡️ 智能控溫，長時間穩定</li>
+            <li>🌧️ IP68 防水等級</li>
+          </ul>
+
+          <div class="btn-row">
+            <a class="btn" href="https://superkinta.github.io/SUPER-KINTA-LED/SUPER%20KINTA%20LED%20%E5%AE%98%E6%96%B9%E6%AD%A3%E7%89%88" target="_blank" rel="noopener">查看 KINSTER 官網</a>
+            <a class="btn" href="https://shopee.tw/elisa668" target="_blank" rel="noopener">前往蝦皮（台中新動力）</a>
+            <a class="btn" href="https://www.youtube.com/@SUPERKINTA" target="_blank" rel="noopener">YouTube 升級效果</a>
+          </div>
+        </div>
+
+        <div class="ratio ratio--16x9">
+          <iframe src="https://www.youtube.com/embed/BcuQ_YBn-Gs?si=AAMN4bJppAdZ3Fs8"
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 評價 -->
+    <section id="reviews" class="section">
+      <div class="section__head">
+        <h2>⭐ 用戶評價（自動輪播＋可手動切換）</h2>
+        <p>老牌店家 口碑第一</p>
+      </div>
+
+      <div class="card">
+        <div class="slider" id="testimonialSlider" aria-roledescription="carousel">
+          <article class="slide is-active">
+            <img class="avatar" alt="User 1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7On9RnDcCwpIRFYVcJ2AkQanYMw4NgIfJh4bYRiP4KA&sandreas-gta-5-online-gunrunning-playstation-4-mod-gta-miscellaneous-emblem-label-thumbnail.png">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="meta"><b>菜單名稱：</b>BBQ508-3</div>
+            <div class="meta"><b>遊戲類型：</b>絕地戰兵2</div>
+            <div class="meta"><b>品質：</b>極棒的</div>
+            <div class="meta"><b>CP值：</b>非常高</div>
+            <p class="quote">心得感想：<br>
+              我買的是絕地戰兵2的輔助，因為先前在蝦皮有很不好的消費體驗，因此這次想說先買天卡體驗看看，並直接請賣家幫我連線測試，結果這一弄就是一個下午了，而且今天還是母親節假日，這樣子的服務品質跟職業熱誠真的沒話說，我非常願意推薦此賣家給想買絕地戰兵2輔助的玩家們，一起用輔助來宣揚民主！賣家很細心、也很有耐心，每個問題都很認真回覆，也很傾聽客戶的需求，值得大力推薦！！</p>
+          </article>
+
+                <div class="card">
+        <div class="slider" id="testimonialSlider" aria-roledescription="carousel">
+          <article class="slide is-active">
+            <img class="avatar" alt="User 2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7On9RnDcCwpIRFYVcJ2AkQanYMw4NgIfJh4bYRiP4KA&sandreas-gta-5-online-gunrunning-playstation-4-mod-gta-miscellaneous-emblem-label-thumbnail.png">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="meta"><b>菜單名稱：</b>LEXIS強化版</div>
+            <div class="meta"><b>遊戲類型：</b>GTA-強化版</div>
+            <div class="meta"><b>品質：</b>極棒的</div>
+            <div class="meta"><b>CP值：</b>非常高</div>
+            <p class="quote">心得感想：<br>
+              我玩那麼多外掛 聽老闆的推薦嘗試 真的很穩定 再也不怕開啟BE反作弊 遊戲被封號的問題了 真的感謝老闆推薦 實在太牛逼了！！</p>
+          </article>
+
+          <article class="slide">
+            <img class="avatar" alt="User 3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7On9RnDcCwpIRFYVcJ2AkQanYMw4NgIfJh4bYRiP4KA&sandreas-gta-5-online-gunrunning-playstation-4-mod-gta-miscellaneous-emblem-label-thumbnail.png">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="meta"><b>菜單名稱：</b>FRIEZA</div>
+            <div class="meta"><b>遊戲類型：</b>GTA5</div>
+            <div class="meta"><b>品質：</b>超級棒</div>
+            <div class="meta"><b>CP值：</b>超高CP值</div>
+            <p class="quote">心得感想：<br>
+              今天感謝老闆的推薦，FRIEZA實在太好用了，剛一個小白入手GTA5，線上常常被攻擊惡搞 而且沒錢沒等級 實在很懊惱，還好有老闆的推薦，讓我在線上實現財富自由💯</p>
+          </article>
+
+          <button class="iconbtn prev" type="button" aria-label="上一則評價">⟨</button>
+          <button class="iconbtn next" type="button" aria-label="下一則評價">⟩</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 轉賬 / 錢包 -->
+    <section id="pay" class="section">
+      <div class="section__head">
+        <h2>🌈 轉賬 / 錢包地址</h2>
+        <p>需要密碼才能顯示帳號。</p>
+      </div>
+
+      <div class="card">
+        <div class="rainbow">
+          【需要轉賬的用戶您好 以下為我們的帳號】<br>
+          【轉賬之前請先 聊聊 OR DISCORD 獲取密碼】<br>
+          【虛擬貨幣 支持 USDT TRC20｜需要請聯繫取得密碼】
+        </div>
+
+        <div class="pay__grid">
+          <div class="pay__item">
+            <h3><i class="fas fa-university"></i> 中國信托（822）</h3>
+            <p class="pay__secret" id="account1" data-secret="067540357340">
+              <b>帳號：</b><span class="secret__value">••••••••••••</span>
+            </p>
+            <div class="btn-row">
+              <button class="btn btn--primary js-show" data-target="account1" type="button">顯示帳號</button>
+              <button class="btn js-copy" data-target="account1" type="button" disabled>複製帳號</button>
+            </div>
+          </div>
+
+          <div class="pay__item">
+            <h3><i class="fas fa-university"></i> 國泰世華（013）</h3>
+            <p class="pay__secret" id="account2" data-secret="699514269797">
+              <b>帳號：</b><span class="secret__value">••••••••••••</span>
+            </p>
+            <div class="btn-row">
+              <button class="btn btn--primary js-show" data-target="account2" type="button">顯示帳號</button>
+              <button class="btn js-copy" data-target="account2" type="button" disabled>複製帳號</button>
+            </div>
+          </div>
+
+          <div class="pay__item">
+            <h3><i class="fas fa-coins"></i> USDT（TRC20）</h3>
+            <p class="pay__secret" id="account3" data-secret="TJULQmDnDafYXaZsCCs4VfP73kuhuUXRtk">
+              <b>錢包地址：</b><span class="secret__value">••••••••••••</span>
+            </p>
+            <div class="btn-row">
+              <button class="btn btn--primary js-show" data-target="account3" type="button">顯示地址</button>
+              <button class="btn js-copy" data-target="account3" type="button" disabled>複製地址</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 無卡存款 -->
+    <section id="deposit" class="section">
+      <div class="section__head">
+        <h2>🏧 無卡存款服務</h2>
+        <p>可以參考影片進行操作</p>
+      </div>
+
+      <div class="card">
+        <ul class="list">
+          <li>您可以在任何銀行／超商使用無卡存款服務</li>
+          <li>⚠️ 使用前請先提醒是轉「中國信託」或「國泰世華」</li>
+          <li>✅ 建議使用中國信託（7-11 合作較方便）</li>
+          <li>✅ 上：中國信託｜下：國泰世華</li>
+        </ul>
+
+        <div class="grid2">
+          <div class="ratio ratio--16x9">
+            <iframe src="https://www.youtube.com/embed/-EXKKc-wbjw"
+              title="7-11中國信託atm無卡存款"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+          <div class="ratio ratio--16x9">
+            <iframe src="https://www.youtube.com/embed/7QW2WFLkJRo"
+              title="國泰世華銀行自動存款機體驗篇"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3><i class="fas fa-check-circle"></i> 如何確認轉賬成功</h3>
+        <ol class="ol">
+          <li>保留轉帳憑證或截圖，以供查證</li>
+          <li>轉帳完成後上傳或拍照提供審查</li>
+          <li>收到款項後安排安裝時間（聊聊或 Discord）</li>
+          <li>嚴禁造假截圖；查證為虛假將拉黑處理，嚴重者報警</li>
+        </ol>
+
+        <div class="discord">
+          <iframe
+            sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+            src="https://discord.com/widget?id=788748936261271573&theme=dark"
+            allowtransparency="true"
+            frameborder="0"
+            title="Discord Widget"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- 不販售 -->
+    <section id="blacklist" class="section">
+      <div class="section__head">
+        <h2>🛠️ 本店不販售的菜單列表</h2>
+        <p>一些跑路的不賣的會寫在這邊。</p>
+      </div>
+
+      <div class="card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>產品品名</th>
+                <th>不販售的原因</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> Ethereal【空靈】</td>
+                <td><i class="fas fa-gavel"></i> 1.竊取個人資料<br>2.過度垃圾保護導致遊戲異常<br>3.被檢測導致封號</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> Frostbite</td>
+                <td><i class="fas fa-ban"></i> 沒什麼下文 算跑路了</td>
+              </tr>               
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> STAND</td>
+                <td><i class="fas fa-ban"></i> 差不多已經涼了 不太會什麼更新</td>
+              </tr>             
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> 2TAKE1</td>
+                <td><i class="fas fa-ban"></i> 2025-03-05 宣佈跑路</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> 幻影</td>
+                <td><i class="fas fa-ban"></i> 2025-03-02 00:32 離世，享年 9 歲</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> XIPRO</td>
+                <td><i class="fas fa-ban"></i> 不賣 不多介紹</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> 泰坦</td>
+                <td><i class="fas fa-ban"></i> 一個垃圾 不如FRIEZA （已經跑路）</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> 開拓者</td>
+                <td><i class="fas fa-ban"></i> 跑路了</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> SVN阿爾法</td>
+                <td><i class="fas fa-ban"></i> 跑路了</td>
+              </tr>
+              <tr>
+                <td><i class="fas fa-tablet-alt"></i> NORTH｜北域</td>
+                <td><i class="fas fa-ban"></i> 跑路了</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 更新日誌 -->
+    <section id="log" class="section">
+      <div class="section__head">
+        <h2>⚡網站更新日誌</h2>
+        <p>全新 3.0 重大更新 網頁升級</p>
+      </div>
+
+      <div class="card log">
+        <div class="log__item"><div class="log__date">2026年2月10日</div><div class="log__text">【📢全新金流支援】：✅支持刷卡一次付清/3/6分期【僅限台新】紅利折抵 | GOOGLE PAY | SAMSUNG PAY | APPLE PAY |支持超商繳費轉帳 銀聯卡等</div></div>
+        <div class="log__item"><div class="log__date">2026年2月10日</div><div class="log__text">【📢全新網站3.0】：全面重大優化 感謝大家的支持</div></div>
+        <div class="log__item"><div class="log__date">2025年3月14日</div><div class="log__text">【📢上架強化版菜單】：僅限支持強化版 關BE進公開XiRush</div></div>
+        <div class="log__item"><div class="log__date">2025年3月8日</div><div class="log__text">【📢更新了一些選項】：現今可以使用的菜單 請看選項說明</div></div>
+        <div class="log__item"><div class="log__date">2025年3月5日</div><div class="log__text">【📢宣佈跑路的外掛】：2TAKE1 2025-03-05 跑路｜幻影 2025-03-02 離世</div></div>
+        <div class="log__item"><div class="log__date">2025年3月4日</div><div class="log__text">【📢上架新商品】：🔥上架GTA-Frostbite【內核注入穩定】</div></div>
+        <div class="log__item"><div class="log__date">2025年2月28日</div><div class="log__text">【📢上架新商品】：🔥上架GTA-Atlas｜RDR2-Sunrise｜下架RDR2-Erebus</div></div>
+        <div class="log__item"><div class="log__date">2025年2月13日</div><div class="log__text">【📢上架新商品】：🔥上架RDR2-Rift｜RDR2-Erebus</div></div>
+        <div class="log__item"><div class="log__date">2025年2月11日</div><div class="log__text">【📢上架新商品】：🔥上架GTA-Lexis｜上架CS2產品</div></div>
+        <div class="log__item"><div class="log__date">2025年1月6日</div><div class="log__text">【🎂五周年】：👉感謝支持！邁向 GTA6 時代的嶄新未來！</div></div>
+        <div class="log__item"><div class="log__date">2024年9月18日</div><div class="log__text">【🔄R星中秋大禮包】：👉GTAO 添加 BattlEye 反作弊系統</div></div>
+        <div class="log__item"><div class="log__date">2024年6月28日</div><div class="log__text">【📢上架新商品】：🍒上架GTA5 CHERAX終極版菜單</div></div>
+        <div class="log__item"><div class="log__date">2024年5月28日</div><div class="log__text">【📢上架新商品】：上架絕地戰兵2系列菜單</div></div>
+        <div class="log__item"><div class="log__date">2024年4月7日</div><div class="log__text">【🛠️修復無卡存款教學】：已修復中國信託無卡存款教學</div></div>
+        <div class="log__item"><div class="log__date">2024年4月7日</div><div class="log__text">【🔄優化改進】：1.優化提示 提升瀏覽速度</div></div>
+        <div class="log__item"><div class="log__date">2024年2月17日</div><div class="log__text">【🔄優化改進】：優化不必要多餘的CODE</div></div>
+        <div class="log__item"><div class="log__date">2024年2月13日</div><div class="log__text">【🐞IOS渲染BUG】：此版已改善手機/桌機比例，不需要切電腦版</div></div>
+        <div class="log__item"><div class="log__date">2024年2月13日</div><div class="log__text">【🔄優化改進】：一鍵快速複製帳號</div></div>
+        <div class="log__item"><div class="log__date">2024年2月13日</div><div class="log__text">【🌐正式上線】：優化界面 選單 背景等bug</div></div>
+        <div class="log__item"><div class="log__date">2024年2月11日</div><div class="log__text">【🛠️背景bug fix】：已修復背景播放相關問題（仍受 iOS 自動播放政策限制）</div></div>
+        <div class="log__item"><div class="log__date">2024年2月10日</div><div class="log__text">【📢網頁1.0升級2.0】：感謝各大用戶支持與肯定💪</div></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <span>© 神仙科技 × 老牌店家 版權所有</span>
+        <a class="to-top" href="#top">↑ 回頂部</a>
+      </div>
+    </footer>
+  </main>
+
+  <!-- 密碼 Modal -->
+  <div class="modal" id="pwdModal" aria-hidden="true">
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="pwdTitle">
+      <div class="modal__head">
+        <h3 id="pwdTitle">請輸入密碼</h3>
+        <button class="iconbtn" id="pwdClose" type="button" aria-label="關閉">✕</button>
+      </div>
+
+      <p style="margin:8px 0 0; color:var(--muted);">密碼請聯繫我們獲取（聊聊 OR Discord）</p>
+
+      <div class="modal__form">
+        <input id="pwdInput" type="password" placeholder="密碼" autocomplete="off" />
+        <button class="btn btn--primary" id="pwdSubmit" type="button">提交</button>
+      </div>
+
+      <p class="note">※ 客戶端密碼僅為「避免路人亂翻」等級，若要真正保護請做伺服器端驗證。</p>
+    </div>
+  </div>
+
+  <!-- Toast 通知 -->
+  <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+  <script>
+    (() => {
+      // === 可選：內容保護（預設關閉；要開把 false 改 true） ===
+      const ENABLE_CONTENT_PROTECTION = false;
+
+      // 密碼（你原本是 GTARDR2）
+      const ACCESS_PASSWORD = "GTARDR2";
+
+      // 評價輪播間隔
+      const SLIDE_INTERVAL_MS = 8000;
+
+      const $ = (s, el = document) => el.querySelector(s);
+      const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+
+      // Toast
+      const toastEl = $("#toast");
+      let toastTimer = null;
+      function toast(msg) {
+        if (!toastEl) return;
+        toastEl.textContent = msg;
+        toastEl.classList.add("is-show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("is-show"), 2600);
+      }
+
+      // === 購買：選單 → 顯示價格 → 啟用按鈕 ===
+      const select = $("#productSelect");
+      const priceDisplay = $("#priceDisplay");
+      const buyBtn = $("#buyButton");
+
+      function updateProductInfo() {
+        const value = select?.value || "#";
+        if (value === "#") {
+          priceDisplay.textContent = "尚未選擇方案";
+          buyBtn.disabled = true;
+          buyBtn.onclick = null;
+          return;
+        }
+        const [link, price] = value.split("|");
+        priceDisplay.textContent = `價格：$${price}`;
+        buyBtn.disabled = false;
+        buyBtn.onclick = () => {
+          window.open(link, "_blank", "noopener");
+          toast("已在新分頁開啟購買連結");
+        };
+        toast("方案已更新，確認後可立即購買");
+      }
+
+      select?.addEventListener("change", updateProductInfo);
+      updateProductInfo();
+
+      // === 密碼 Modal：顯示帳號 ===
+      const modal = $("#pwdModal");
+      const pwdInput = $("#pwdInput");
+      const pwdSubmit = $("#pwdSubmit");
+      const pwdClose = $("#pwdClose");
+
+      let pendingTargetId = null;
+
+      function openModal(targetId) {
+        pendingTargetId = targetId;
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        pwdInput.value = "";
+        setTimeout(() => pwdInput.focus(), 0);
+      }
+
+      function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        pendingTargetId = null;
+      }
+
+      function revealSecret(targetId) {
+        const row = document.getElementById(targetId);
+        if (!row) return;
+
+        const secret = row.getAttribute("data-secret") || "";
+        $(".secret__value", row).textContent = secret;
+
+        // enable copy button
+        const copyBtn = $(`.js-copy[data-target="${targetId}"]`);
+        if (copyBtn) copyBtn.disabled = false;
+
+        toast("已顯示資訊（可一鍵複製）");
+      }
+
+      function checkPassword() {
+        const input = (pwdInput.value || "").trim();
+        if (input === ACCESS_PASSWORD) {
+          revealSecret(pendingTargetId);
+          closeModal();
+        } else {
+          toast("密碼錯誤");
+          pwdInput.focus();
+        }
+      }
+
+      $$(".js-show").forEach(btn => {
+        btn.addEventListener("click", () => {
+          openModal(btn.getAttribute("data-target"));
+        });
+      });
+
+      // copy
+      async function copyText(text) {
+        try {
+          await navigator.clipboard.writeText(text);
+          return true;
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            const ok = document.execCommand("copy");
+            document.body.removeChild(ta);
+            return ok;
+          } catch {
+            document.body.removeChild(ta);
+            return false;
+          }
+        }
+      }
+
+      $$(".js-copy").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const id = btn.getAttribute("data-target");
+          const el = document.getElementById(id);
+          const secret = el?.getAttribute("data-secret") || "";
+          if (!secret) return;
+
+          const ok = await copyText(secret);
+          toast(ok ? "已複製到剪貼簿" : "複製失敗（瀏覽器限制）");
+        });
+      });
+
+      pwdSubmit?.addEventListener("click", checkPassword);
+      pwdInput?.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") checkPassword();
+        if (e.key === "Escape") closeModal();
+      });
+
+      pwdClose?.addEventListener("click", closeModal);
+      modal?.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      // === 背景影片音量控制 ===
+      const bgVideo = $("#bgVideo");
+      const soundToggle = $("#soundToggle");
+      const soundIcon = $("i", soundToggle);
+
+      function setMuted(muted) {
+        if (!bgVideo) return;
+        bgVideo.muted = muted;
+        if (soundIcon) {
+          soundIcon.classList.toggle("fa-volume-mute", muted);
+          soundIcon.classList.toggle("fa-volume-up", !muted);
+        }
+        localStorage.setItem("bgMuted", muted ? "1" : "0");
+        toast(muted ? "背景音效：已靜音" : "背景音效：已開啟");
+      }
+
+      const savedMuted = localStorage.getItem("bgMuted");
+      if (savedMuted === "0") setMuted(false);
+      else setMuted(true);
+
+      soundToggle?.addEventListener("click", async () => {
+        if (!bgVideo) return;
+        try { await bgVideo.play(); } catch {}
+        setMuted(!bgVideo.muted);
+      });
+
+      // === 評價輪播（修正 prev/next） ===
+      const slider = $("#testimonialSlider");
+      if (slider) {
+        const slides = $$(".slide", slider);
+        const prev = $(".prev", slider);
+        const next = $(".next", slider);
+
+        let idx = slides.findIndex(s => s.classList.contains("is-active"));
+        if (idx < 0) idx = 0;
+
+        const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+
+        function show(i) {
+          slides.forEach(s => s.classList.remove("is-active"));
+          idx = (i + slides.length) % slides.length;
+          slides[idx].classList.add("is-active");
+        }
+
+        function goNext(){ show(idx + 1); }
+        function goPrev(){ show(idx - 1); }
+
+        prev?.addEventListener("click", goPrev);
+        next?.addEventListener("click", goNext);
+
+        let timer = null;
+        function start() {
+          if (prefersReducedMotion) return;
+          timer = setInterval(goNext, 8000);
+        }
+        function stop() { if (timer) clearInterval(timer); }
+
+        slider.addEventListener("mouseenter", stop);
+        slider.addEventListener("mouseleave", start);
+        start();
+      }
+
+      // === 可選：內容保護（預設關閉） ===
+      if (ENABLE_CONTENT_PROTECTION) {
+        document.addEventListener("contextmenu", (e) => e.preventDefault());
+        document.addEventListener("copy", (e) => { e.preventDefault(); toast("複製已停用"); });
+        document.addEventListener("paste", (e) => { e.preventDefault(); toast("貼上已停用"); });
+        document.addEventListener("keydown", (e) => {
+          const block =
+            e.key === "F12" ||
+            (e.ctrlKey && e.shiftKey && ["I","J","C"].includes(e.key)) ||
+            (e.ctrlKey && e.key === "U");
+          if (block) { e.preventDefault(); toast("已停用開發者工具快捷鍵"); }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
